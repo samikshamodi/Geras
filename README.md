@@ -3,7 +3,7 @@ Our application “Geras” allows senior citizens and their families, NGOs, the
 
 Application/Domain - Senior Citizen welfare
 
-Please read [Report.pdf](ProjectReport_Team59.pdf) for a more detailed description. 
+Please read [Report.pdf](Report.pdf) for a more detailed description. 
 
 MySQL 8.0 and Python 3.8.5 were used for this project
 
