@@ -54,7 +54,7 @@ The NGOs can employ our database in order to fulfill the services required by th
 3. Receive service request from the government
 4. Allot available volunteers to the work 
 5. Access transactions with the government 
-6. Display available volunteers.
+6. Display available volunteers
 7. Display number of completed and pending services of a volunteer
 
 ### Government   
@@ -63,13 +63,13 @@ The government plays a very important role in connecting the Elderly, NGO and it
 Our application will help the government officers, the admin of the database to maintain the list of NGO and healthcare workers that the Elderly can connect to. 
 
 #### Queries
-1.Register all the officers and their designation
+1. Register all the officers and their designation
 2. Access all service request
 3. Assign healthcare workers for service request
 4. Assign NGOs for service request
 5. Complete transaction with Healthcare Worker
 6. Complete transaction with NGO
-7. Access all transactions
+7. Access transactions history
 8. Get Number of Completed and Pending Services
 
 ### Healthcare Workers   
