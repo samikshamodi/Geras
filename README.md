@@ -96,7 +96,7 @@ The importance of family in a senior’s life is truly immeasurable. Family is o
 7. Track the service request
 
 ## Screenshots
-![geras_ss1](https://user-images.githubusercontent.com/55681233/120114043-f4232380-c19a-11eb-8a3e-bfa112702f02.jpg)
+![geras_ss1](https://user-images.githubusercontent.com/55681233/120114565-511fd900-c19d-11eb-97e8-dc90213169e7.jpg)
 ![geras_ss2](https://user-images.githubusercontent.com/55681233/120114046-f5ece700-c19a-11eb-969f-107bd5684f43.jpg)
 
 ![geras_ss3](https://user-images.githubusercontent.com/55681233/120114047-f6857d80-c19a-11eb-9390-605f3f6e57fe.jpg)
