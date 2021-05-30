@@ -95,5 +95,20 @@ The importance of family in a senior’s life is truly immeasurable. Family is o
 6. Request service for/on behalf of the elderly
 7. Track the service request
 
+## Screenshots
+![geras_ss1](https://user-images.githubusercontent.com/55681233/120114043-f4232380-c19a-11eb-8a3e-bfa112702f02.jpg)
+![geras_ss2](https://user-images.githubusercontent.com/55681233/120114046-f5ece700-c19a-11eb-969f-107bd5684f43.jpg)
+
+![geras_ss3](https://user-images.githubusercontent.com/55681233/120114047-f6857d80-c19a-11eb-9390-605f3f6e57fe.jpg)
+
+![geras_ss4](https://user-images.githubusercontent.com/55681233/120114048-f71e1400-c19a-11eb-9092-b5adb2c06a7a.jpg)
+
+![geras_ss5](https://user-images.githubusercontent.com/55681233/120114050-f71e1400-c19a-11eb-93bc-4be60b0021c0.jpg)
+
+![geras_ss6](https://user-images.githubusercontent.com/55681233/120114051-f84f4100-c19a-11eb-9be1-9dd56c3efb17.jpg)
+
+![geras_ss7](https://user-images.githubusercontent.com/55681233/120114052-f84f4100-c19a-11eb-88d7-aca75fd1b8ac.jpg)
+
+
 
 
