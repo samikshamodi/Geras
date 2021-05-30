@@ -575,9 +575,9 @@ def deregister_ngo(mydb, sql_cursor, ngo_id):
 
 # 1. register details
 
-def register_as_family(sql_cursor,F_ID,First_name,Last_name,Mobile_No,Email_ID,House_No,Street_Name,City,State,Pincode,C_Status):
-    query =  ''' INSERT INTO Family(F_ID,First_name,Last_name,Mobile_No,Email_ID,House_No,Street_Name,City,State,Pincode,C_Status) VALUES (%s,%s,%s,%s,%s,%s,%s,%s,%s,%s,'Active');'''
-    params = [F_ID,First_name,Last_name,Mobile_No,Email_ID,House_No,Street_Name,City,State,Pincode,C_Status]
+def register_as_family(sql_cursor,F_ID,First_name,Last_name,Mobile_No,Email_ID,House_No,Street_Name,City,State,Pincode):
+    query =  ''' INSERT INTO Family(F_ID,First_name,Last_name,Mobile_No,Email_ID,House_No,Street_Name,City,State,Zip) VALUES (%s,%s,%s,%s,%s,%s,%s,%s,%s,%s);'''
+    params = [F_ID,First_name,Last_name,Mobile_No,Email_ID,House_No,Street_Name,City,State,Pincode]
     try:
         sql_cursor.execute(query, params)
         mydb.commit()
@@ -617,9 +617,9 @@ def view_medicine_record(sql_cursor, F_ID):
 
 # 4. Request Service for Elderly
 
-def request_service_for_elderly(sql_cursor,F_ID,service_ID,details,service_status,start_date):
-    query =  ''' INSERT INTO Service(service_ID, details, service_status, aadhar_no AS SELECT aadhar_no FROM Elderly WHERE F_ID = Elderly.F_ID , start_date) VALUES (%s,%s,%s,%s,%s) ;'''
-    params = [F_ID,Service_ID,details,service_status,start_date]
+def request_service_for_elderly(sql_cursor,service_ID,details,service_status,aadhar_no,start_date):
+    query =  ''' INSERT INTO Service(service_ID, details, service_status, aadhar_no,start_date) VALUES (%s,%s,%s,%s,%s) ;'''
+    params = [service_ID,details,service_status,aadhar_no,start_date]
     try:
         sql_cursor.execute(query, params)
         mydb.commit()
@@ -631,7 +631,7 @@ def request_service_for_elderly(sql_cursor,F_ID,service_ID,details,service_statu
 # 5. Track Service Request
 
 def track_elderly_service_request(sql_cursor,F_ID):
-    query =  ''' SELECT * FROM Service,Elderly WHERE Services.aadhar_no=Elderly.aadhar_no AND Eldery.F_ID=%s;'''
+    query =  ''' SELECT * FROM Service,Elderly WHERE (Service.aadhar_no=Elderly.aadhar_no AND F_ID=%s);'''
     params = [F_ID]
     try:
         sql_cursor.execute(query, params)
@@ -654,11 +654,23 @@ def track_elderly_service_request(sql_cursor,F_ID):
 #------------------------------------------------------------------------------------------------------------------
 # Healthcare Worker
 
+# 1. Register healthcare worker
+def register_healthcare_worker(sql_cursor, HW_ID, First_Name, Last_Name, Designation, Mobile_No, House_No, Street_Name, City, State, Pincode,Service_Cost):
+    query =  ''' INSERT INTO Healthcare_worker(HW_ID, First_Name, Last_Name, Designation, Mobile_No, House_No, Street_Name, City, State, zip, Service_Cost) VALUES (%s, %s, %s, %s, %s, %s, %s, %s, %s, %s,%s);'''
+    params = [HW_ID, First_Name, Last_Name, Designation, Mobile_No, House_No, Street_Name, City, State, Pincode, Service_Cost]
+    try:
+        sql_cursor.execute(query, params)
+        mydb.commit()
+        print("Welcome to Geras. Thank you for registering Healthcare Worker.")
+    except Exception as e:
+        print(e)
+        return
+
 
 # 2. Access prescription history of an Elderly
 
 def presciption_elderly(sql_cursor,HW_ID):
-    query =  '''SELECT * FROM Medicine_Update,Elderly,Appoints_HW,Service WHERE Medicine_Update.Aadhar_No = Elderly.Adhar_No AND Elderly.Aadhar_No = Service.Aadhar_No AND Service.Service_ID = Appoints_HW.Service_ID AND Appoints_HW.HW_ID = %s;'''
+    query =  '''SELECT * FROM Medicine_Update,Elderly,Appoints_HW,Service WHERE Medicine_Update.Aadhar_No = Elderly.Aadhar_No AND Elderly.Aadhar_No = Service.Aadhar_No AND Service.Service_ID = Appoints_HW.Service_ID AND Appoints_HW.HW_ID = %s;'''
     params = [HW_ID]
     try:
         sql_cursor.execute(query, params)
@@ -861,6 +873,8 @@ while(1):
                     print("Longitude", place.geo_location['lng'])
                     print()
 
+
+
             elif( op2==10):
                 break
             else:
@@ -1046,6 +1060,7 @@ while(1):
                 pretty_print_results(*get_number_of_completed_and_pending_services(sql_cursor))
 
 
+
             elif(op2==9):
                 break
             else:
@@ -1137,15 +1152,74 @@ while(1):
             op2=int(input("Your Option: "))
 
             if(op2==1):
-                print("Q1")
+                fname=input("Enter first name: ")
+                lname=input("Enter last name: ")
+                mobile=input("Enter mobile number: ")
+                email=input("Enter email: ")
+                house=input("Enter house no: ")
+                street=input("Enter street name: ")
+                city=input("Enter city name: ")
+                state=input("Enter state name: ")
+                pin=input("Enter pincode: ")
+    
+                query =  ''' SELECT * FROM family;'''
+                try:
+                    sql_cursor.execute(query)
+                    results = sql_cursor.fetchall()
+                except Exception as e:
+                    print(e)
+
+                number=int((len(results)))
+                number+=1
+                number='FAM'+str(number)
+                fid = number
+                register_as_family(sql_cursor,fid,fname,lname,mobile,email,house,street,city,state,pin)
+                print("Your Family ID is:",number)
+
+
+
             elif (op2==2):
-                print("Q2")
+                fid=input("Enter your Family ID: ")
+                pretty_print_results(*healthcare_worker_details(sql_cursor, fid))
+
+
+
             elif (op2==3):
-                print("Q3")
+                fid=input("Enter your Family ID: ")
+                pretty_print_results(*view_medicine_record(sql_cursor, fid))
+
+
+
             elif (op2==4):
-                print("Q4")
+                query =  ''' SELECT * FROM Service;'''
+
+                try:
+                    sql_cursor.execute(query)
+                    results = sql_cursor.fetchall()
+                except Exception as e:
+                    print(e)
+
+                number=int((len(results)))
+                number+=1
+                #print(number)
+                number='SER'+str(number)
+                #print(number)
+
+                aadhar=input("Enter Elderly Aadhar for whom you want to request: ")
+                details=input("Describe service: ")
+                date=time.strftime('%Y%m%d')
+                #print(date)
+
+                request_service_for_elderly(sql_cursor,number,details,'Requested',aadhar, date)
+                
+
+
             elif (op2==5):
-                print("Q5")
+                fid=input("Enter your Family ID: ")
+                pretty_print_results(*track_elderly_service_request(sql_cursor, fid))
+
+
+
             elif (op2==6):
                 break
             else:
@@ -1162,13 +1236,50 @@ while(1):
             op2=int(input("Your Option: "))
 
             if(op2==1):
-                print("Q1")
+                fname=input("Enter first name: ")
+                lname=input("Enter last name: ")
+                design=input("Enter designation of officer: ")
+                mobile=input("Enter mobile number: ")
+                house=input("Enter house no: ")
+                street=input("Enter street name: ")
+                city=input("Enter city name: ")
+                state=input("Enter state name: ")
+                pin=input("Enter pincode: ")
+                service_cost=input("Enter service cost: ")
+                query =  ''' SELECT * FROM healthcare_worker;'''
+                try:
+                    sql_cursor.execute(query)
+                    results = sql_cursor.fetchall()
+                except Exception as e:
+                    print(e)
+
+                number=int((len(results)))
+                number+=1
+                number='HW'+str(number)
+                hwid = number
+                register_officers(sql_cursor,hwid,fname,lname,design,mobile,house,street,city,state,pin,service_cost)
+                print("Your Healthcare Worker ID is:",number) 
+            
+            
+            
             elif (op2==2):
-                print("Q2")
+                hwid=input("Enter your Healthcare Worker ID: ")
+                pretty_print_results(*presciption_elderly(sql_cursor, hwid))
+            
+            
+            
             elif (op2==3):
-                print("Q3")
+                sid=input("Enter Servie ID: ")
+                report_completion_by_healthcareworker(sid);
+
+
+
             elif (op2==4):
-                print("Q4")
+                sid=input("Enter Servie ID: ")
+                contact_family(sid);
+
+
+
             elif (op2==5):
                 break
             else:

@@ -53,10 +53,6 @@ CREATE TABLE Medicine_Update (
     PRIMARY KEY(Aadhar_No,Date)
 );
 
-
-
-
-
 CREATE TABLE Healthcare_Worker (
     HW_ID varchar(12) NOT NULL,
     First_Name varchar(40) NOT NULL,
@@ -86,7 +82,6 @@ CREATE TABLE Government_Officer (
     Email varchar(80) NOT NULL UNIQUE,
         PRIMARY KEY(Officer_ID)
 );
-
 
 CREATE TABLE Service (
     Service_ID varchar(12) NOT NULL,
@@ -128,7 +123,6 @@ CREATE TABLE Volunteer_NGO (
     PRIMARY KEY(Volunteer_ID,NGO_ID)
 );
 
-
 CREATE TABLE Volunteer (
     Volunteer_ID varchar(12) NOT NULL,
     First_Name varchar(40) NOT NULL,
@@ -162,7 +156,8 @@ CREATE TABLE NGO (
 ALTER TABLE Elderly
 ADD FOREIGN KEY (F_ID) REFERENCES Family(F_ID);
 
-ALTER TABLE Service ADD FOREIGN KEY (Aadhar_No) REFERENCES Elderly (Aadhar_No);
+ALTER TABLE Service 
+ADD FOREIGN KEY (Aadhar_No) REFERENCES Elderly (Aadhar_No);
 
 ALTER TABLE Appoints_NGO
 ADD FOREIGN KEY (Service_ID) REFERENCES Service (Service_ID);
@@ -193,4 +188,30 @@ ADD FOREIGN KEY (HW_ID) REFERENCES Healthcare_Worker (HW_ID);
 
 ALTER TABLE Medicine_Update
 ADD FOREIGN KEY (Aadhar_No) REFERENCES Elderly (Aadhar_No);
+
+Create Index trans_appoints_NGO
+ON Appoints_NGO(Service_Cost, Transaction_ID);
+
+Create Index trans_appoints_HW
+ON Appoints_HW(Service_Cost, Transaction_ID);
+
+Create Index officer_appoints_HW
+ON Appoints_HW(HW_ID, Officer_ID);
+
+Create Index available_ngos_with_service_cost
+ON NGO(NGO_ID, Service_Cost);
+
+Create Index track_elderly_service
+ON Service(Aadhar_No, Service_ID);
+
+Create Index elderly_aadhar
+ON Elderly(Aadhar_No);
+
+Create Index completed_elderly_service
+ON Service(Aadhar_No, Service_Status);
+
+Create Index services_info
+ON Service(Service_ID, Service_Status, Type);
+
+
 
