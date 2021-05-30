@@ -9,7 +9,7 @@ from datetime import datetime
 
 
 
-mydb=mysql.connector.connect(host="localhost", user="root",passwd="samiksha",database="project2")
+mydb=mysql.connector.connect(host="localhost", user="root",passwd="",database="geras")
 #"db is the database name in mysql on my computer. You might have named it as project or geras in yours"
 print(mydb)
 sql_cursor = mydb.cursor()
@@ -1238,7 +1238,7 @@ while(1):
             if(op2==1):
                 fname=input("Enter first name: ")
                 lname=input("Enter last name: ")
-                design=input("Enter designation of officer: ")
+                design=input("Enter designation: ")
                 mobile=input("Enter mobile number: ")
                 house=input("Enter house no: ")
                 street=input("Enter street name: ")
@@ -1257,7 +1257,7 @@ while(1):
                 number+=1
                 number='HW'+str(number)
                 hwid = number
-                register_officers(sql_cursor,hwid,fname,lname,design,mobile,house,street,city,state,pin,service_cost)
+                register_healthcare_worker(sql_cursor,hwid,fname,lname,design,mobile,house,street,city,state,pin,service_cost)
                 print("Your Healthcare Worker ID is:",number) 
             
             
@@ -1269,13 +1269,13 @@ while(1):
             
             
             elif (op2==3):
-                sid=input("Enter Servie ID: ")
+                sid=input("Enter Service ID: ")
                 report_completion_by_healthcareworker(sid);
 
 
 
             elif (op2==4):
-                sid=input("Enter Servie ID: ")
+                sid=input("Enter Service ID: ")
                 contact_family(sid);
 
 
